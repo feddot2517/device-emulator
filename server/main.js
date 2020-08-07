@@ -31,28 +31,28 @@ Meteor.startup(() => {
         socket.join(deviceId);
 
 
-        socket.on('turnOn', () => {
-            socket.to(deviceId).emit('notification',  notify(deviceId, 0, randomInteger(0, 100)))
+        socket.on('turnOn', ({value}) => {
+            socket.to(deviceId).emit('notification',  notify(deviceId, 0, value))
         });
 
-        socket.on('turnOff', () => {
-            socket.to(deviceId).emit('notification',  notify(deviceId, 5, randomInteger(0, 100)))
+        socket.on('turnOff',  ({value}) => {
+            socket.to(deviceId).emit('notification',  notify(deviceId, 5, value))
         });
 
-        socket.on('alarm', () => {
-            socket.to(deviceId).emit('notification',  notify(deviceId, 2, randomInteger(30, 1000)))
+        socket.on('alarm',  ({value}) => {
+            socket.to(deviceId).emit('notification',  notify(deviceId, 2, value))
         });
 
-        socket.on('attention', () => {
-            socket.to(deviceId).emit('notification',  notify(deviceId, 3, randomInteger(30, 1000)))
+        socket.on('attention',  ({value}) => {
+            socket.to(deviceId).emit('notification',  notify(deviceId, 3, value))
         });
 
-        socket.on('kgrChange', () => {
-            socket.to(deviceId).emit('notification',  notify(deviceId, 1, randomInteger(30, 1000)))
+        socket.on('kgrChange',  ({value}) => {
+            socket.to(deviceId).emit('notification',  notify(deviceId, 1, value))
         });
 
-        socket.on('lowCharge', () => {
-            socket.to(deviceId).emit('notification',  notify(deviceId, 4, randomInteger(0, 50)))
+        socket.on('lowCharge',  ({value}) => {
+            socket.to(deviceId).emit('notification',  notify(deviceId, 4, value))
         });
     });
 });
