@@ -7,8 +7,9 @@ import Device from "../imports/models/Device";
 
 import '../imports/api/methods'
 import {randomInteger, randomString} from "../imports/utils";
+const ONE_HOUR = 1000 * 60 * 60;
 
-const io = socketIO(WebApp.httpServer);
+const io = socketIO(WebApp.httpServer, {pingTimeout: ONE_HOUR * 24, pingInterval: ONE_HOUR * 24});
 
 function notify(deviceId, signal, value) {
     return {deviceId, date: new Date().getTime(), signal, value}
@@ -29,7 +30,6 @@ Meteor.startup(() => {
     io.on('connection', function(socket) {
         const { deviceId } = socket.handshake.query
         socket.join(deviceId);
-
 
         socket.on('turnOn', ({value}) => {
             socket.to(deviceId).emit('notification',  notify(deviceId, 0, value))

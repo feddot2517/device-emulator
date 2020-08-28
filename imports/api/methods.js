@@ -5,7 +5,6 @@ Meteor.methods({
     'addDevice'(virtualId) {
         const device = new Device({virtualId});
         device.save();
-        console.log('qwe');
     },
     'deleteDevice'(virtualId) {
         Device.remove({virtualId})
